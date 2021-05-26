@@ -3,6 +3,7 @@ from tensorflow import keras
 from copy import deepcopy
 from inspect import signature
 from functools import partial
+from . import SampleWeightScheduler
 from SampleWeightScheduler import SampleWeightScheduler
 
 
