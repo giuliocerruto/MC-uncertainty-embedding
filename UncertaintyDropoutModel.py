@@ -251,7 +251,7 @@ class UncertaintyDropoutModel(keras.Model):
         self.uncert = []
         for m in self.no_uncertainty_metrics.metrics:
             m.reset_states()
-        self.__test_size = len(list(train_dataset.unbatch().as_numpy_iterator()))
+        self.__test_size = len(list(x.unbatch().as_numpy_iterator()))
         return super(UncertaintyDropoutModel, self).evaluate(x=x, y=y, batch_size=batch_size, verbose=verbose,
                                                              sample_weight=sample_weight, steps=steps,
                                                              callbacks=callbacks, max_queue_size=max_queue_size,
