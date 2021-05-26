@@ -6,6 +6,7 @@ from inspect import signature
 from functools import partial
 from .SampleWeightScheduler import SampleWeightScheduler
 from tensorflow.python.keras.engine import compile_utils
+from scipy.stats import entropy
 
 
 class UncertaintyDropoutModel(keras.Model):
