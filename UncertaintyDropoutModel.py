@@ -4,7 +4,7 @@ from copy import deepcopy
 from inspect import signature
 from functools import partial
 from ./SampleWeightScheduler import SampleWeightScheduler
-#from SampleWeightScheduler import SampleWeightScheduler
+from SampleWeightScheduler import SampleWeightScheduler
 
 
 class UncertaintyDropoutModel(keras.Model):
