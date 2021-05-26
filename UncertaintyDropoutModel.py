@@ -144,7 +144,7 @@ class UncertaintyDropoutModel(keras.Model):
         elif self.uncertainty_quantification == 'vertical_uncertainties':
             normalization_factor = 1
         elif self.uncertainty_quantification == 'entropy_uncertainties':
-            normalization_factor = 1#1.58496
+            normalization_factor = 1.58496
         return (lambda x: x / normalization_factor)
 
     def train_step(self, data):
