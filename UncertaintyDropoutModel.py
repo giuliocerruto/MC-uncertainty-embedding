@@ -25,7 +25,7 @@ class UncertaintyDropoutModel(keras.Model):
         self.epoch_uncertainty_function = None
         self.layerslist = list()  # list of model layers
         self.uncert = []
-        self.uncertainty_tol = tf.constant([uncertainty_tol], dtype=tf.float32)
+        self.uncertainty_tol = tf.constant([uncertainty_tol], dtype=tf.double)
         self.no_uncertainty_metrics = None
         self.__normalization_function = self.__normalize_uncertainties()
         self.__test_size = None
