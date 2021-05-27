@@ -156,6 +156,7 @@ class UncertaintyDropoutModel(keras.Model):
             y_pred, uncert = self.__computeuncertainties(x)
             uncert = tf.map_fn(self.__normalization_function, uncert)
             sample_weight = tf.map_fn(self.epoch_uncertainty_function, uncert)
+            print('negative', np.sum(tf.math.less(uncert, tf.constant([0.01]))))
             # Compute the loss value
             # (the loss function is configured in `compile()`)
             loss = self.compiled_loss(y, y_pred, regularization_losses=self.losses, sample_weight=sample_weight)
