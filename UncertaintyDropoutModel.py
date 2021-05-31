@@ -1,34 +1,29 @@
-import numpy as np
-import tensorflow as tf
 from tensorflow import keras
 from copy import deepcopy
 from inspect import signature
 from functools import partial
-from .SampleWeightScheduler import SampleWeightScheduler
 from tensorflow.python.keras.engine import compile_utils
 from scipy.stats import entropy
 
 
 class UncertaintyDropoutModel(keras.Model):
 
-    def __init__(self, input_shape, n_classes, underlying_model, uncertainty_function, MC_replications=10,
+    def __init__(self, underlying_model, uncertainty_function, MC_replications=10,
                  MC_dropout_rate=0.6, dropout_pos='all',
                  uncertainty_quantification='predicted_class_variances', uncertainty_tol=0.6):
-        # togliere input_shape se non implementiamo il modo per decidere l'architettura passando una stringa a model
-        super(UncertaintyDropoutModel, self).__init__()
-        self.shape = input_shape
-        self.n_classes = n_classes
-        self.MC_replications = MC_replications
-        self.dropout_rate = MC_dropout_rate
-        self.uncertainty_quantification = uncertainty_quantification
-        self.uncertainty_function = uncertainty_function
-        self.epoch_uncertainty_function = None
+        
+        super(UncertaintyDropoutModel, self).__init__() # calling super class constructor
+        self.MC_replications = MC_replications # number of times forward pass has to be performed for each sample
+        self.dropout_rate = MC_dropout_rate # dropout rate of dropout layers
+        self.uncertainty_quantification = uncertainty_quantification # how to quantify uncertainty
+        self.uncertainty_function = uncertainty_function # how to map uncertainty to sample weights
+        self.epoch_uncertainty_function = None # the function mapping uncertainty to sample weights may vary at each epoch
         self.layerslist = list()  # list of model layers
-        self.uncert = []
-        self.uncertainty_tol = tf.constant([uncertainty_tol], dtype=tf.double)
+        self.uncert = [] # array to store 
+        self.uncertainty_tol = tf.constant([uncertainty_tol], dtype=tf.float32) # uncertainty tolerance
         self.no_uncertainty_metrics = None
-        self.__normalization_function = self.__normalize_uncertainties()
-        self.__test_size = None
+        self.__normalization_function = self.__normalize_uncertainties() # function to normalize the uncertainty into the interval [0,1]
+        self.__test_size = None # size of the test set
 
         if len(signature(
                 self.uncertainty_function).parameters) == 1:  # if the uncertainty function has only one parameter, it won't be dependent on the epoch
@@ -36,7 +31,7 @@ class UncertaintyDropoutModel(keras.Model):
             self.sws = None
         elif len(signature(
                 self.uncertainty_function).parameters) == 2:  # if it is dependent on 2 parameters, we need a schedule
-            self.sws = SampleWeightScheduler(self.__scheduler)
+            self.sws = SampleWeightScheduler(self.__scheduler) # use a sample weight scheduler in this case
 
         # converting model to functional if it is sequential
         if isinstance(underlying_model, keras.Sequential):
@@ -156,7 +151,7 @@ class UncertaintyDropoutModel(keras.Model):
             y_pred, uncert = self.__computeuncertainties(x)
             uncert = tf.map_fn(self.__normalization_function, uncert)
             sample_weight = tf.map_fn(self.epoch_uncertainty_function, uncert)
-            print('negative', np.sum(tf.math.less(uncert, tf.constant([0.01],dtype=tf.double))))
+            #print('negative', np.sum(tf.math.less(uncert, tf.constant([0],dtype=tf.double))))
             # Compute the loss value
             # (the loss function is configured in `compile()`)
             loss = self.compiled_loss(y, y_pred, regularization_losses=self.losses, sample_weight=sample_weight)
@@ -204,7 +199,7 @@ class UncertaintyDropoutModel(keras.Model):
         # predicted_class_variances = tf.map_fn(get_unct, uncertainties_among_labels)
         predicted_class_variances = np.asarray([uncertainty[prediction] for prediction, uncertainty in
                                                 zip(predictions_uncertainty, uncertainties_among_labels)])
-        return mean_probs, predicted_class_variances
+        return mean_probs, tf.cast(predicted_class_variances, tf.float32)
 
     def __minmax(self, h):
         a = np.argmax(h)
@@ -216,13 +211,13 @@ class UncertaintyDropoutModel(keras.Model):
         p_hat = self.__MC_sampling(x)
         mean_probs = tf.math.reduce_mean(p_hat, axis=0)
         predicted_uncertanties = np.apply_along_axis(self.__minmax, 1, mean_probs.numpy())
-        return mean_probs, predicted_uncertanties
+        return mean_probs, tf.cast(predicted_uncertanties, tf.float32)
 
     def __compute_entropy_uncertainties(self, x):
         p_hat = self.__MC_sampling(x)
         mean_probs = tf.math.reduce_mean(p_hat, axis=0)
         predicted_uncertanties = np.apply_along_axis(entropy, 1, mean_probs.numpy())
-        return mean_probs, predicted_uncertanties
+        return mean_probs, tf.cast(predicted_uncertanties, tf.float32)
 
     def compile(self,
                 optimizer='rmsprop',
