@@ -1,4 +1,12 @@
-# Bioinformatics
+# <p align="center">Politecnico di Torino</p>
+
+
+
+<img src="C:\Users\Giulio\Downloads\logo_new.jpeg" style="zoom:20%;" />
+
+# Bioinformatics (**05OVFSM** )
+
+#### A.Y. 2020/2021
 
  ## Project 9 : Uncertainty in BCNN
 
@@ -8,7 +16,7 @@
 
 The aim of this project is to embed the MC dropout uncertainty into the learning loss of a Convolutional Neural Network, so that weight updates coming from images recognized as spurious  (i.e. when the network provides for an uncertain prediction) are reduced, while  updates coming from clear images are amplified.
 
-The project is mainly grounded on the implementation of a new class: **UncertaintyDropoutModel**, relying, in turn, on a scheduler of class **SampleWeightScheduler**.
+The project is mainly grounded on the implementation of two new classes: an **UncertaintyDropoutModel** class, relying, in turn, on a scheduler of class **SampleWeightScheduler**.
 
 The code relies on *Tensorflow 2.5.0* (running on eager execution, which is enabled by default in this version).
 
@@ -73,4 +81,47 @@ __tofunctional(
 )
 ```
 
-Turns a [Sequential Model](https://www.tensorflow.org/api_docs/python/tf/keras/Sequential) into a [Functional Model](https://www.tensorflow.org/guide/keras/functional)
+Turns a [Sequential Model](https://www.tensorflow.org/api_docs/python/tf/keras/Sequential) into a [Functional Model](https://www.tensorflow.org/guide/keras/functional), as this class works with the latter one only.
+
+| **Args**  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| **model** | The [tf.keras.Model](https://www.tensorflow.org/api_docs/python/tf/keras/Model) to be turned to Functional. |
+
+| **Returns**                            |
+| -------------------------------------- |
+| A model built with the Functional API. |
+
+#### __adddropoutlayers
+
+[View source]() AGGIUNGERE LINK
+
+```python
+__adddropoutlayers(
+    layers, dropout_pos
+)
+```
+
+Inserts new dropout layers to the input list of layers according to the specified positions.
+
+| **Args**        |                                                              |
+| --------------- | ------------------------------------------------------------ |
+| **layers**      | List of layers to which new dropout layers need to be inserted. |
+| **dropout_pos** | List of bool specifying whether to insert a dropout layer in a given position. |
+
+#### __scheduler
+
+[View source]() AGGIUNGERE LINK
+
+```python
+__scheduler(
+    epoch, fun
+)
+```
+
+Returns a [partial object](https://docs.python.org/3/library/functools.html#partial-objects) serving as a scheduler to the SampleWeightScheduler object attribute.
+
+| **Args**  |                      |
+| --------- | -------------------- |
+| **epoch** | Current epoch number |
+| **fun**   |                      |
+
