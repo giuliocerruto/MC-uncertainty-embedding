@@ -2,7 +2,7 @@
 
 
 
-<img width=400 src="https://www.polito.it/images/logo_poli.svg" style="zoom:8%;" />
+<p align="center"><img width=400 src="https://www.polito.it/images/logo_poli.svg" style="zoom:8%;" /></p>
 
 # <p align="center">Bioinformatics (**05OVFSM** )</p>
 
