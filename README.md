@@ -2,17 +2,17 @@
 
 
 
-<img src="https://www.polito.it/images/logo_poli.svg" style="zoom:2%;" />
+<img src="https://www.polito.it/images/logo_poli.svg" style="zoom:8%;" />
 
-# Bioinformatics (**05OVFSM** )
+# <p align="center">Bioinformatics (**05OVFSM** )</p>
 
 #### A.Y. 2020/2021
 
- ## Project 9 : Uncertainty in BCNN
+ ## <p align="center">Project 9 : Uncertainty in BCNN</p>
 
-## Borrello Simona Maria (277789)
+## Borrello Simona Maria ([277789, s277789@studenti.polito.it](mailto:277789, s277789@studenti.polito.it))
 
-## Cerruto Giulio (277335)
+## Cerruto Giulio (277335, [giulio.cerruto@studenti.polito.it](mailto:giulio.cerruto@studenti.polito.it))
 
 The aim of this project is to embed the MC dropout uncertainty into the learning loss of a Convolutional Neural Network, so that weight updates coming from images recognized as spurious  (i.e. when the network provides for an uncertain prediction) are reduced, while  updates coming from clear images are amplified.
 
@@ -118,10 +118,14 @@ __scheduler(
 )
 ```
 
-Returns a [partial object](https://docs.python.org/3/library/functools.html#partial-objects) serving as a scheduler to the SampleWeightScheduler object attribute.
+Returns a [partial object](https://docs.python.org/3/library/functools.html#partial-objects) serving as a scheduler to the **SampleWeightScheduler** object attribute.
 
-| **Args**  |                      |
-| --------- | -------------------- |
-| **epoch** | Current epoch number |
-| **fun**   |                      |
+| **Args**  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| **epoch** | Current epoch number.                                        |
+| **fun**   | Function depending on the current epoch number and on the sample uncertainty. |
+
+| **Returns**                                                  |
+| ------------------------------------------------------------ |
+| A [partial object](https://docs.python.org/3/library/functools.html#partial-objects) serving as a scheduler to the **SampleWeightScheduler** object attribute. |
 
