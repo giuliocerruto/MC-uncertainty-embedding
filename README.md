@@ -21,8 +21,8 @@ Inherits From: <span style="background-color: #ffecb8">[Model](https://www.tenso
 ```python
 model = UncertaintyDropoutModel(underlying_model,
                                 uncertainty_function,
-                                MC_replications = 10,
-                                MC_dropout_rate = 0.6,
+                                mc_replications = 10,
+                                mc_dropout_rate = 0.6,
                                 dropout_pos = 'all',
                                 uncertainty_quantification = 'predicted_class_variances',
                                 uncertainty_tol = 0.6)
