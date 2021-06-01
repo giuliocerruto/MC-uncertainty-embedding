@@ -20,7 +20,7 @@ Inherits From: <span style="background-color: #ffecb8">[Model](https://www.tenso
 
 ```python
 model = UncertaintyDropoutModel(underlying_model,
-                                uncertainty_function,
+                                ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+)'uncertainty_function',
                                 MC_replications = 10,
                                 MC_dropout_rate = 0.6,
                                 dropout_pos = 'all',
