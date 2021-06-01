@@ -10,7 +10,7 @@
 
  ## <p align="center">Project 9 : Uncertainty in BCNN</p>
 
-## Borrello Simona Maria ([277789, s277789@studenti.polito.it](mailto:277789, s277789@studenti.polito.it))
+## Borrello Simona Maria (277789, [s277789@studenti.polito.it](mailto:s277789@studenti.polito.it))
 
 ## Cerruto Giulio (277335, [giulio.cerruto@studenti.polito.it](mailto:giulio.cerruto@studenti.polito.it))
 
