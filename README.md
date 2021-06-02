@@ -1,5 +1,7 @@
 <p align="center"><img width=400 src="https://www.polito.it/images/logo_poli.svg" style="zoom:8%;" /></p>
 
+<p align="center"><img width=400 src="https://www.polito.it/images/logo_poli.svg" style="zoom:8%;" /></p>
+
 # <p align="center">Bioinformatics (**05OVFSM** )</p>
 
 #### A.Y. 2020/2021
@@ -10,9 +12,9 @@
 
 ## Cerruto Giulio (277335, [giulio.cerruto@studenti.polito.it](mailto:giulio.cerruto@studenti.polito.it))
 
-The aim of this project is to embed the MC dropout uncertainty into the learning loss of a Convolutional Neural Network, so that weight updates coming from images recognized as spurious  (i.e. when the network provides for an uncertain prediction) are reduced, while  updates coming from clear images are amplified.
+The aim of this project is to embed the Monte Carlo dropout uncertainty into the learning loss of a Convolutional Neural Network, so that weight updates coming from images recognized as spurious  (i.e. when the network provides for an uncertain prediction) are reduced, while  updates coming from clear images are amplified.
 
-The project is mainly grounded on the implementation of two new classes: an **UncertaintyDropoutModel** class, relying, in turn, on a scheduler of class **SampleWeightScheduler**.
+The project is mainly grounded on the implementation of two new classes: an `**UncertaintyDropoutModel**` class, `relying`, in turn, on a scheduler of class **SampleWeightScheduler**.
 
 The code relies on *Tensorflow 2.5.0* (running on eager execution, which is enabled by default in this version).
 
@@ -20,7 +22,7 @@ The code relies on *Tensorflow 2.5.0* (running on eager execution, which is enab
 
 [View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py)
 
-**UncertaintyDropoutModel** expands a Tensorflow Keras **Model** adding dropout layers and associating a value of uncertainty to each sample on which it is trained or tested.
+**UncertaintyDropoutModel** expands a Tensorflow Keras `**Model**` adding dropout layers and associating a value of uncertainty to each sample on which it is trained or tested.
 
 Inherits From: [Model](https://www.tensorflow.org/api_docs/python/tf/keras/Model)
 
@@ -42,11 +44,11 @@ model = UncertaintyDropoutModel(underlying_model,
 | **mc_dropout_rate**            | The dropout rate of each [tf.keras.layers.Dropout](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Dropout) layer. |
 | **dropout_pos**                | Either a list of booleans of length len(underlying_model.layers)-1 specifying whether to add a dropout layer between two layers of the original model or not, or *'all'* if a dropout layer should be added anywhere. |
 | **uncertainty_quantification** | A string among *'predicted_class_variances'*, *'vertical_uncertainties'* and *'entropy_uncertainties'* (see ... for more details) specifying how two quantify the uncertainty, after the MC sampled forward pass. |
-| **uncertainty_tol**            | A float or double tolerance value above which to disregard a sample when updating the metrics' state. |
+| **uncertainty_tol**            | A float tolerance value above which to disregard a sample when updating the metrics' state. |
 
 | **Raises**     |                                                              |
 | -------------- | ------------------------------------------------------------ |
-| **ValueError** | In case **dropout_pos** is not the string *'all'* or a list of bool of length len(underlying_model.layers)-1. |
+| **ValueError** | In case **dropout_pos** is not the string *'all'* or a list of booleans of length len(underlying_model.layers)-1. |
 
 This model subclasses **tf.keras.Model**, therefore, it can be configured, trained and tested with the usual and well-known methods: **model.compile()**, **model.fit()** and **model.evaluate()**.
 
@@ -77,7 +79,7 @@ __tofunctional(
 )
 ```
 
-Turns a [Sequential Model](https://www.tensorflow.org/api_docs/python/tf/keras/Sequential) into a [Functional Model](https://www.tensorflow.org/guide/keras/functional), as this class works with the latter one only.
+Turns a [Sequential Model](https://www.tensorflow.org/api_docs/python/tf/keras/Sequential) into a [Functional Model](https://www.tensorflow.org/guide/keras/functional), as this class works with the latter only.
 
 | **Args**  |                                                              |
 | --------- | ------------------------------------------------------------ |
@@ -102,7 +104,7 @@ Inserts new dropout layers to the input list of layers according to the specifie
 | **Args**        |                                                              |
 | --------------- | ------------------------------------------------------------ |
 | **layers**      | List of layers to which new dropout layers need to be inserted. |
-| **dropout_pos** | List of bool specifying whether to insert a dropout layer in a given position. |
+| **dropout_pos** | List of boolean specifying whether to insert a dropout layer in a given position. |
 
 #### __scheduler
 
@@ -124,4 +126,21 @@ Returns a [partial object](https://docs.python.org/3/library/functools.html#part
 | **Returns**                                                  |
 | ------------------------------------------------------------ |
 | A [partial object](https://docs.python.org/3/library/functools.html#partial-objects) serving as a scheduler to the **SampleWeightScheduler** object attribute. |
+
+#### **call**
+
+```python
+call(
+    inputs, training=True
+)
+```
+
+Overrides the `tf.keras.Model` [call()](https://www.tensorflow.org/api_docs/python/tf/keras/Model#call) method. Calls the model on new inputs.
+
+| **Args**     |                                                              |
+| ------------ | ------------------------------------------------------------ |
+| **inputs**   | A tensor or list of tensors.                                 |
+| **training** | Boolean or boolean scalar tensor, indicating whether to run the `Network` in training mode or inference mode. |
+
+
 
