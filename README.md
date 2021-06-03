@@ -281,8 +281,6 @@ __min_max(x)
 
 Implements a way to calculate the dispersion in an array. It will be used in `compute_vertical_uncertainties`. 
 
-Vedi dettagli in ... Computes the minimum difference between each component of the array input and 
-
 | **Args** |                |
 | -------- | -------------- |
 | **x**    | A Numpy array. |
@@ -479,21 +477,33 @@ When the method is called, i.e. at the start of an epoch, the uncertainty functi
 This section provides details about `UncertaintyDropoutModel` [uncertainty_quantification](ffinse) attribute. inserire codice!!! 
 It specifies how to quantify the uncertainty about predictions, after the *mc_replications* times repeated forward pass.
 
-Three different modes have been implemented to perform this task. All three share the first step, i.e. the computation of the mean of predicted probabilities  over *mc_replications* run of the forward pass.  
+Three different modes have been implemented to perform this task. All three share the first step, i.e. the computation of the mean of predicted probabilities  over *mc_replications* run of the forward pass.  The result is, for each sample,  a *C*-dimensional array, where *C* is the number of classes.
 
 A further explanation of each mode follows below.
 
-#### ***predicted_class_variances***
+#### ***predicted_class_variances***<sup>[[1](ciao)] </sup>
 
 
 
 #### ***vertical_uncertainties***
 
+The uncertainty of the  *i*-th sample is obtained by computing the minimum difference between the maximum *M*  of the array  *mean_probs P(i)* and all its other entries.  Hence, the uncertainty of the  *i*-th sample is
+$$
+1- [\min_{c \neq j  }{( p_c(i)- M)}],\\ j = argmax(P(i)), \quad M= \max(P(i))
+$$
+where *P(i)* is defined as follows:
+$$
+P(i)=[p_c(i)]_{c \in C}
+$$
+ ![alt text](http://www.sciweavers.org/tex2img.php?eq=p_c%28i%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)is the mean probability  ( over *mc_replications* run of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
+
 #### *entropy_uncertainties* <sup>[[2](ciao)] </sup>
 
-
-
-Uncertainty is measured 
+The uncertainty is measured in *entropy*, that is, for the *i*-th sample
+$$
+H(i)= - 	\sum_{c \in C} p_c(i)log_2[p_c(i)],
+$$
+where ![alt text](http://www.sciweavers.org/tex2img.php?eq=p_c%28i%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)is the mean probability  ( over *mc_replications* run of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
 
 ### **uncertainty_function** 
 
@@ -504,3 +514,5 @@ This section provides examples
 #todo: 
 
 - menzionare articoli ( su dropout e epistemic varianza)
+
+* link file excel con risultati
