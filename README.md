@@ -464,7 +464,7 @@ Hence, it will be instantiated only if the number of parameters of the method `u
 on_epoch_begin(epoch, logs=None)
 ```
 
-Overrides the `tf.keras.callbacks.Callback`[on_epoch_begin](https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/callbacks.py#L654-L665) method. 
+Overrides the `tf.keras.callbacks.Callback` [on_epoch_begin](https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/callbacks.py#L654-L665) method. 
 When the method is called, i.e. at the start of an epoch, the uncertainty function is updated.
 
 | **Args**  |                          |
