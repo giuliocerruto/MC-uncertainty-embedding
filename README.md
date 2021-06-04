@@ -483,6 +483,8 @@ A further explanation of each mode follows below.
 
 #### ***predicted_class_variances***<sup>[[1](ciao)] </sup>
 
+The uncertainty of the  *i*-th sample is  decomposed  into two parts, *aleatoric* and *epistemic* uncertainty where the former captures irreducible variability due to randomness of outcomes, and the latter, variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the *aleatoric uncertainty* is computed as follows: 
+
 
 
 #### ***vertical_uncertainties***
