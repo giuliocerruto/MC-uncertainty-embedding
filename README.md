@@ -536,4 +536,3 @@ It is worth pointing out the following considerations:
 - menzionare articoli ( su dropout e epistemic varianza)
 
 * link file excel con risultati
- {% include_relative ./file.html %}
