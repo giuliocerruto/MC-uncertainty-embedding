@@ -483,7 +483,7 @@ A further explanation of each mode follows below.
 
 #### ***predicted_class_variances***<sup>[[1](ciao)] </sup>
 
-The uncertainty of the  *i*-th sample is  decomposed  into two parts, *aleatoric* and *epistemic* uncertainty where the former captures irreducible variability due to randomness of outcomes, and the latter, variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the *aleatoric uncertainty* is computed as follows: 
+The uncertainty of the  *i*-th sample is  decomposed  into two parts, *aleatoric* and *epistemic* uncertainty where the former captures irreducible variability due to randomness of outcomes, and the latter, variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the *aleatoric uncertainty* is computed as the mean, along MonteCarlo dimension, of the element**-**wise product of *p_hat*.  While the *epistemic uncertainty* is obtained by subtracting
 
 
 
@@ -511,7 +511,17 @@ where ![alt text](http://www.sciweavers.org/tex2img.php?eq=p_c%28i%29&bc=White&f
 
 
 
-This section provides examples
+This section provides examples for the *uncertainty_function* that maps the uncertainty value of a sample to the weight it will have in the loss minimization step. The uncertainty function should be chosen from the user. It can be more or less complex, as well as it can depend on both or just the value of the uncertainty.  Here, just few examples have been shown: 
+
+#### **Linear**
+
+#### **Exponential**
+
+The *exponential uncertainty function* is defined as follows: 
+$$
+f(uncert,epoch)= 1+ [-1.5*(epoch-1)/(N-1)]*(uncert-0.5),
+$$
+where *N* is the number of epochs of the model. 
 
 #todo: 
 
