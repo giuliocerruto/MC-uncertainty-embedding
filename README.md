@@ -523,6 +523,14 @@ f(uncert,epoch)= 1+ [-1.5*(epoch-1)/(N-1)]*(uncert-0.5),
 $$
 where *N* is the number of epochs of the model. 
 
+IMMAGINE-> METTERE SUGLI ASSI IL SIGNIFICATO
+
+It is worth pointing out the following considerations:
+
+* at the first epoch, all samples have the same weight in the loss minimization step. No influence neither from the value of uncertainty nor from the value of the current epoch. A such behavior seems reasonable/justifiable at the at the beginning of the training.
+* as the training continues and the number of the current epoch grows, the uncertainty plays an increasingly central role. In fact, campioni a cui corrispondono incertezze basse avranno un peso sempre maggiore all'umentare dell'epoca, viceversa quelle con una incertezza alta avranno un peso sempre minore andando avanti con le epoche. Ad esempio -> mettere esempio numerico ; 
+* at the last epoch, .....
+
 #todo: 
 
 - menzionare articoli ( su dropout e epistemic varianza)
