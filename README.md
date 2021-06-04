@@ -519,7 +519,7 @@ This section provides examples for the *uncertainty_function* that maps the unce
 
 The *exponential uncertainty function* is defined as follows: 
 $$
-f(uncert,epoch)= 1+ [-1.5*(epoch-1)/(N-1)]*(uncert-0.5),
+f(uncert,epoch)=1+[-1.5*(epoch-1)/(N-1)]*(uncert-0.5),
 $$
 where *N* is the number of epochs of the model. 
 
