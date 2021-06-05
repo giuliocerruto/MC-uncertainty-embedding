@@ -483,7 +483,7 @@ A further explanation of each mode follows below.
 
 #### ***predicted_class_variances***<sup>[[1](ciao)] </sup>
 
-The uncertainty of the  *i*-th sample is  decomposed  into two parts, *aleatoric* and *epistemic* uncertainty where the former captures irreducible variability due to randomness of outcomes, and the latter, variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the *aleatoric uncertainty* is computed as the mean, along MonteCarlo dimension, of the element**-**wise product of *p_hat*.  While the *epistemic uncertainty* is obtained by subtracting
+The uncertainty of the  *i*-th sample is  decomposed  into two parts, *aleatoric* and *epistemic* uncertainty where the former captures irreducible variability due to randomness of outcomes, and the latter, variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the *aleatoric uncertainty* is computed as the mean, along MonteCarlo dimension, of the element**-**wise product of *p_hat*.  While the *epistemic uncertainty* is obtained by subtracting CONTINUARE 
 
 
 
@@ -499,7 +499,7 @@ P(i)=[p_c(i)]_{c \in C}
 $$
  ![alt text](http://www.sciweavers.org/tex2img.php?eq=p_c%28i%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)is the mean probability  ( over *mc_replications* run of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
 
-#### *entropy_uncertainties* <sup>[[2](ciao)] </sup>
+#### *entropy_uncertainties* <sup>[[2](ciao)] </sup>
 
 The uncertainty is measured in *entropy*, that is, for the *i*-th sample
 $$
@@ -511,15 +511,24 @@ where ![alt text](http://www.sciweavers.org/tex2img.php?eq=p_c%28i%29&bc=White&f
 
 
 
-This section provides examples for the *uncertainty_function* that maps the uncertainty value of a sample to the weight it will have in the loss minimization step. The uncertainty function should be chosen from the user. It can be more or less complex, as well as it can depend on both or just the value of the uncertainty.  Here, just few examples have been shown: 
+This section provides examples for the *uncertainty_function* that maps the uncertainty value of a sample to the weight it will have in the loss minimization step. The uncertainty function should be chosen from the user. It can be more or less complex, as well as it can depend on both or just the value of the uncertainty.  Below, just few examples, obtained heuristically, (???)  have been shown: 
 
 #### **Linear**
+
+The *linear uncertainty function* is defined as follows: 
+$$
+f(uncert,epoch)= 1+ [-1.5*(epoch-1)/(N-1)]*(uncert-0.5),
+$$
+
+where *N* is the number of epochs of the model. 
+
+
 
 #### **Exponential**
 
 The *exponential uncertainty function* is defined as follows: 
 $$
-f(uncert,epoch)=1+[-1.5*(epoch-1)/(N-1)]*(uncert-0.5),
+f(uncert,epoch)= [2+(epoch-N)/N]* exp(-(epoch-1)*uncert)
 $$
 where *N* is the number of epochs of the model. 
 
@@ -528,11 +537,11 @@ IMMAGINE-> METTERE SUGLI ASSI IL SIGNIFICATO
 It is worth pointing out the following considerations:
 
 * at the first epoch, all samples have the same weight in the loss minimization step. No influence neither from the value of uncertainty nor from the value of the current epoch. A such behavior seems reasonable/justifiable at the at the beginning of the training.
-* as the training continues and the number of the current epoch grows, the uncertainty plays an increasingly central role. In fact, campioni a cui corrispondono incertezze basse avranno un peso sempre maggiore all'umentare dell'epoca, viceversa quelle con una incertezza alta avranno un peso sempre minore andando avanti con le epoche. Ad esempio -> mettere esempio numerico ; 
-* at the last epoch, .....
+* because of increasing convexity, as the training continues, the uncertainty plays an increasingly central role. In fact, as  the number of the current epoch grows, the samples with low uncertainties will have matter more and more, viceversa that ones with higher uncertainties, will have matter less and less . For istance, a value of uncertainty= 0.2 is mapped to a weight = and the secondo epoch = at the last. Viceverse a value of uncertainty=0.9 is    
 
 #todo: 
 
 - menzionare articoli ( su dropout e epistemic varianza)
 
 * link file excel con risultati
+* successivi sviluppi
