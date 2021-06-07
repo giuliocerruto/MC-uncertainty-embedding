@@ -530,7 +530,7 @@ The *exponential uncertainty function* is defined as follows:
 $$
 f(uncert,epoch)= [2+(epoch-N)/N]* exp(-(epoch-1)*uncert)
 $$
-![equation](<img src="http://www.sciweavers.org/tex2img.php?eq=f%28uncert%2Cepoch%29%3D%20%5Cleft%5B2%2B%5Cfrac%7Bepoch-N%7D%7BN%7D%5Cright%5D%5Ctimes%20e%5E%7B-%28epoch-1%29%5Ctimes%20uncert%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="f(uncert,epoch)= \left[2+\frac{epoch-N}{N}\right]\times e^{-(epoch-1)\times uncert})
+![equation](http://www.sciweavers.org/tex2img.php?eq=f%28uncert%2Cepoch%29%3D%20%5Cleft%5B2%2B%5Cfrac%7Bepoch-N%7D%7BN%7D%5Cright%5D%5Ctimes%20e%5E%7B-%28epoch-1%29%5Ctimes%20uncert%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
 
 where *N* is the number of epochs of the model. 
 
