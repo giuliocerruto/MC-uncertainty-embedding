@@ -522,7 +522,7 @@ $$
 
 where *N* is the number of epochs of the model. 
 
-
+<p align="center"><img width=400 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/linear.png" style="zoom:8%;" /></p>
 
 #### **Exponential**
 
@@ -535,6 +535,8 @@ f(uncert,epoch)= [2+(epoch-N)/N]* exp(-(epoch-1)*uncert)
 ```
 
 where *N* is the number of epochs of the model. 
+
+<p align="center"><img width=400 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/exp.png" style="zoom:8%;" /></p>
 
 IMMAGINE-> METTERE SUGLI ASSI IL SIGNIFICATO
 
