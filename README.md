@@ -515,16 +515,17 @@ When the method is called, i.e. at the start of an epoch, the uncertainty functi
 
 ### **uncertainty_quantification**  
 
-This section provides details about th `UncertaintyDropoutModel` [uncertainty_quantification](ffinse) attribute. inserire codice!!! 
-It specifies how to quantify the uncertainty about predictions, after the *mc_replications* times repeated forward pass.
+This section provides details about the `UncertaintyDropoutModel` [uncertainty_quantification](ffinse) attribute. (inserire link!!!) Such attribute specifies how the model should quantify the prediction uncertainty, after the *mc_replications* times repeated forward pass.
 
-Three different modes have been implemented to perform this task. All three share the first step, i.e. the computation of the mean of predicted probabilities  over *mc_replications* run of the forward pass.  The result is, for each sample,  a *C*-dimensional array, where *C* is the number of classes.
+Three different modes have been implemented to perform this task.
+
+All three share the first step, i.e. the computation of the mean of predicted probabilities over *mc_replications* run of the forward pass.  The result is, for each sample, a *C*-dimensional array, where *C* is the number of classes.
 
 A further explanation of each mode follows below.
 
 #### ***predicted_class_variances***<sup>[[1](ciao)] </sup>
 
-The uncertainty of the  *i*-th sample is  decomposed  into two parts, *aleatoric* and *epistemic* uncertainty where the former captures irreducible variability due to randomness of outcomes, and the latter, variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the *aleatoric uncertainty* is computed as the mean, along MonteCarlo dimension, of the element**-**wise product of *p_hat*.  While the *epistemic uncertainty* is obtained by subtracting CONTINUARE 
+The uncertainty of the *i*-th sample is decomposed into two parts, *aleatoric* and *epistemic* uncertainty. The former captures irreducible variability due to the randomness of the outcomes, the latter the variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the *aleatoric uncertainty* is computed as the mean, along the MonteCarlo sampling dimension, of the element**-**wise product of *p_hat*.  While the *epistemic uncertainty* is obtained by subtracting CONTINUARE 
 
 
 
@@ -538,7 +539,9 @@ where *P(i)* is defined as follows:
 $$
 P(i)=[p_c(i)]_{c \in C}
 $$
- ![alt text](http://www.sciweavers.org/tex2img.php?eq=p_c%28i%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)is the mean probability  ( over *mc_replications* run of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
+<p align="center"><img width=300 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/minmax.png" style="zoom:8%;" /></p>
+
+p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* run of the forward pass ) of the *i*-th sample to belong to class *c* among all classes *C*.
 
 #### *entropy_uncertainties* <sup>[[2](ciao)] </sup>
 
@@ -549,8 +552,6 @@ $$
 where ![alt text](http://www.sciweavers.org/tex2img.php?eq=p_c%28i%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)is the mean probability  ( over *mc_replications* run of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
 
 ### **uncertainty_function** 
-
-
 
 This section provides examples for the *uncertainty_function* that maps the uncertainty value of a sample to the weight it will have in the loss minimization step. The uncertainty function should be chosen from the user. It can be more or less complex, as well as it can depend on both or just the value of the uncertainty.  Below, just few examples, obtained heuristically, (???)  have been shown: 
 
@@ -571,10 +572,6 @@ The *exponential uncertainty function* is defined as follows:
 $$
 f(uncert,epoch)= [2+(epoch-N)/N]* exp(-(epoch-1)*uncert)
 $$
-```
-f(uncert,epoch)= [2+(epoch-N)/N]* exp(-(epoch-1)*uncert)
-```
-
 where *N* is the number of epochs of the model. 
 
 <p align="center"><img width=900 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/exp.jpg" style="zoom:8%;" /></p>
