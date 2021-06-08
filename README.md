@@ -539,7 +539,7 @@ where *P(i)* is defined as follows:
 $$
 P(i)=[p_c(i)]_{c \in C}
 $$
-<p align="center"><img width=300 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/minmax.PNG" style="zoom:8%;" /></p>
+<p align="center"><img src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/minmax.PNG" style="zoom:8%;" /></p>
 
 p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* run of the forward pass ) of the *i*-th sample to belong to class *c* among all classes *C*.
 
