@@ -523,7 +523,7 @@ All three share the first step, i.e. the computation of the mean of predicted pr
 
 A further explanation of each mode follows below.
 
-#### ***predicted_class_variances***<sup>[[1](ciao)] </sup>
+#### ***predicted_class_variances***<sup>[[1](ciao)METTERE LINK] </sup>
 
 The uncertainty of the *i*-th sample is decomposed into two parts, *aleatoric* and *epistemic* uncertainty. The former captures irreducible variability due to the randomness of the outcomes, the latter the variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the *aleatoric uncertainty* is computed as the mean, along the MonteCarlo sampling dimension, of the element**-**wise product of *p_hat*.  While the *epistemic uncertainty* is obtained by subtracting CONTINUARE 
 
@@ -537,12 +537,10 @@ The uncertainty of the  *i*-th sample is obtained by computing the minimum diffe
 
 p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* run of the forward pass ) of the *i*-th sample to belong to class *c* among all classes *C*.
 
-#### *entropy_uncertainties* <sup>[[2](ciao)] </sup>
+#### *entropy_uncertainties* <sup>[[1](ciao) METTERE LINK] </sup>
 
-The uncertainty is measured through *entropy*, that is, for the *i*-th sample
-$$
-H(i)= - 	\sum_{c \in C} p_c(i)log_2[p_c(i)],
-$$
+The uncertainty is measured through *entropy*, that is, for the *i*-th sample:
+
 <p align="center"><img width=350 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/entropy.png" style="zoom:8%;" /></p>
 
 where p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* run of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
@@ -554,30 +552,23 @@ This section provides examples for the *uncertainty_function* that maps the unce
 #### **Linear**
 
 The *linear uncertainty function* is defined as follows: 
-$$
-f(uncert,epoch)= 1+ [-1.5*(epoch-1)/(N-1)]*(uncert-0.5),
-$$
-
-where *N* is the number of epochs of the model. 
 
 <p align="center"><img width=900 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/linear.png" style="zoom:8%;" /></p>
+
+where *N* is the number of epochs of the model, which, in the plot, is 10. 
 
 #### **Exponential**
 
 The *exponential uncertainty function* is defined as follows: 
-$$
-f(uncert,epoch)= [2+(epoch-N)/N]* exp(-(epoch-1)*uncert)
-$$
-where *N* is the number of epochs of the model. 
 
 <p align="center"><img width=900 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/exp.jpg" style="zoom:8%;" /></p>
 
-IMMAGINE-> METTERE SUGLI ASSI IL SIGNIFICATO
+where *N* is the number of epochs of the model, which, in the plot, is 10. 
 
 It is worth pointing out the following considerations:
 
-* at the first epoch, all samples have the same weight in the loss minimization step. No influence neither from the value of uncertainty nor from the value of the current epoch. A such behavior seems reasonable/justifiable at the at the beginning of the training.
-* because of increasing convexity, as the training continues, the uncertainty plays an increasingly central role. In fact, as  the number of the current epoch grows, the samples with low uncertainties will have matter more and more, viceversa that ones with higher uncertainties, will have matter less and less . For istance, a value of uncertainty= 0.2 is mapped to a weight = and the secondo epoch = at the last. Viceverse a value of uncertainty=0.9 is    
+* at the first epoch, all samples have the same weight in the loss minimization step. No influence arises from the uncertainty value. Such behavior seems reasonable at the at the beginning of the training, since the weight initialization is usually random or coming from the transfer learning approach.
+* because of increasing convexity, as the training continues, the uncertainty plays an increasingly central role. Indeed, as  the number of the current epoch grows, the samples with low uncertainties will matter more and more, vice-versa the ones with higher uncertainties, will have less and less importance. For instance, with the *linear uncertainty quantification function*, a value of uncertainty of 0.2 is mapped to a weight = 1.05 at the second epoch and to a weight = 1.45 at the last. Vice-versa a value of uncertainty of 0.9 is mapped to a weight = 0.93 at the second epoch and to a weight = 0.40 at the last.
 
 #todo: 
 
@@ -585,3 +576,9 @@ It is worth pointing out the following considerations:
 
 * link file excel con risultati
 * successivi sviluppi
+
+## References
+
+<sup>[1]</sup> Yongchan Kwona, Joong-Ho Wona, Beom Joon Kimb, Myunghee Cho Paika. *Uncertainty quantification using Bayesian neural networks in classification: Application to biomedical image segmentation*. 2019. 
+
+<sup>[2]</sup> Yarin Gal, Zoubin Ghahramani. *Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning*. 2016.
