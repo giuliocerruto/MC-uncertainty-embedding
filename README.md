@@ -531,25 +531,21 @@ The uncertainty of the *i*-th sample is decomposed into two parts, *aleatoric* a
 
 #### ***vertical_uncertainties***
 
-The uncertainty of the  *i*-th sample is obtained by computing the minimum difference between the maximum *M*  of the array  *mean_probs P(i)* and all its other entries.  Hence, the uncertainty of the  *i*-th sample is
-$$
-1- [\min_{c \neq j  }{( p_c(i)- M)}],\\ j = argmax(P(i)), \quad M= \max(P(i))
-$$
-where *P(i)* is defined as follows:
-$$
-P(i)=[p_c(i)]_{c \in C}
-$$
+The uncertainty of the  *i*-th sample is obtained by computing the minimum difference between the maximum *M*  of the array  *mean_probs P(i)* and all its other entries.  Hence, the uncertainty of the  *i*-th sample is defined as:
+
 <p align="center"><img width=350 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/minmax.PNG" style="zoom:8%;" /></p>
 
 p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* run of the forward pass ) of the *i*-th sample to belong to class *c* among all classes *C*.
 
 #### *entropy_uncertainties* <sup>[[2](ciao)] </sup>
 
-The uncertainty is measured in *entropy*, that is, for the *i*-th sample
+The uncertainty is measured through *entropy*, that is, for the *i*-th sample
 $$
 H(i)= - 	\sum_{c \in C} p_c(i)log_2[p_c(i)],
 $$
-where ![alt text](http://www.sciweavers.org/tex2img.php?eq=p_c%28i%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)is the mean probability  ( over *mc_replications* run of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
+<p align="center"><img width=350 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/entropy.png" style="zoom:8%;" /></p>
+
+where p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* run of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
 
 ### **uncertainty_function** 
 
