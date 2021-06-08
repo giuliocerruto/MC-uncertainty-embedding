@@ -127,13 +127,15 @@ Returns a [`partial object`](https://docs.python.org/3/library/functools.html#pa
 
 #### **call**
 
+[View source]() AGGIUNGERE LINK
+
 ```python
 call(
     inputs, training=True
 )
 ```
 
-Overrides the `tf.keras.Model` [call()](https://www.tensorflow.org/api_docs/python/tf/keras/Model#call) method. Calls the model on new inputs.
+Overrides the `tf.keras.Model` [call](https://www.tensorflow.org/api_docs/python/tf/keras/Model#call) method. Calls the model on new inputs.
 
 | **Args**     |                                                              |
 | ------------ | ------------------------------------------------------------ |
@@ -146,6 +148,8 @@ Overrides the `tf.keras.Model` [call()](https://www.tensorflow.org/api_docs/pyth
 
 #### **fit** 
 
+[View source]() AGGIUNGERE LINK
+
 ```python
 fit(
     x=None, y=None, batch_size=None, epochs=1, verbose='auto',
@@ -156,7 +160,7 @@ fit(
 )
 ```
 
-Overrides the `tf.keras.Model` [fit()](https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L877-L1238)  method. Trains the model for a fixed number of epochs (iterations on a dataset). If the model uses the `SampleWeitghtScheduler` (i.e. If  the `uncertainty_function` of the model is dependent on 2 parameters), this method adds the `SampleWeitghtScheduler` to the callbacks list of the model. 
+Overrides the `tf.keras.Model` [fit(https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L877-L1238)  method. Trains the model for a fixed number of epochs (iterations on a dataset). If the model uses the `SampleWeitghtScheduler` (i.e. if  the `uncertainty_function` of the model is dependent on 2 parameters), this method adds the `SampleWeitghtScheduler` to the callbacks list of the model. 
 
 | **Args**                  |                                                              |
 | ------------------------- | ------------------------------------------------------------ |
@@ -191,13 +195,16 @@ Overrides the `tf.keras.Model` [fit()](https://github.com/tensorflow/tensorflow/
 | **RuntimeError** | 1. If the model was never compiled or, <br />2. If model.fit is wrapped in tf.function |
 | **ValueError**   | In case of mismatch between the provided input data and what the model expects or when the input data is empty. |
 
-#### **normalize_uncertainties**
+#### **__normalize_uncertainties**
 
-```
-__normalize_uncertainties()
+[View source]() AGGIUNGERE LINK
+
+```python
+__normalize_uncertainties(
+)
 ```
 
-Computes the normalization factor, based on the `uncertainty_quantification` mode, passed as input.
+Computes the normalization function, based on the `uncertainty_quantification` mode, passed as input. 
 
 | **Returns**                              |
 | ---------------------------------------- |
@@ -205,15 +212,17 @@ Computes the normalization factor, based on the `uncertainty_quantification` mod
 
 #### **train_step**
 
+[View source]() AGGIUNGERE LINK
+
 ```python
-train_step(data)
+train_step(
+    data
+)
 ```
 
-Overrides the `tf.keras.Model` [train_step()](https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L765-L809) method. This method contains the mathematical logic for one step of training. It includes the forward pass, loss calculation, back-propagation, and metric updates.
-This method calls the private method `computeuncertainties` that computes, for each sample, a value of uncertainty. Then, the last is mapped, by `epoch_uncertainty_function`, into a weight that  will be embedded in the learning loss.
+Overrides the `tf.keras.Model` [train_step](https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L765-L809) method. This method contains the mathematical logic for one step of training. It includes the forward pass, uncertainty quantification, weight mapping, loss calculation, back-propagation, and metric updates.
+This method calls the private method `__computeuncertainties` that computes, for each sample, a value of uncertainty. Then, the last is mapped, through `epoch_uncertainty_function`, into a weight that  will be embedded in the learning loss.
 If the `sws` scheduler ( of class`SampleWeightScheduler`) is not instantiated (i.e. the weights do not depend on the current epoch), `epoch_uncertainty_function` coincides with `uncertainty_function`.
-
-
 
 | **Args** |                                |
 | -------- | ------------------------------ |
@@ -223,10 +232,14 @@ If the `sws` scheduler ( of class`SampleWeightScheduler`) is not instantiated (i
 | ------------------------------------------------------------ |
 | A `dict` containing values that will be passed to [`tf.keras.callbacks.CallbackList.on_train_batch_end`](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/CallbackList#on_train_batch_end). |
 
-#### **compute_uncertainties**
+#### **__compute_uncertainties**
+
+[View source]() AGGIUNGERE LINK
 
 ```python
-__compute_uncertainties(x)
+__compute_uncertainties(
+    x
+)
 ```
 
 It computes the uncertainties associated to the input, using the chosen `uncertainty_quantification` mode. 
@@ -239,10 +252,14 @@ It computes the uncertainties associated to the input, using the chosen `uncerta
 | ------------------- |
 | A couple of Tensors |
 
-#### mc_sampling
+#### **__mc_sampling**
+
+[View source]() AGGIUNGERE LINK
 
 ```python
-__mc_sampling(x)
+__mc_sampling(
+    x
+)
 ```
 
  Performs, for each batch, the forward pass *mc_replications* times and computes the predictions.
@@ -255,15 +272,17 @@ __mc_sampling(x)
 | ------------------------------------------------------------ |
 | Tensor of shape (*mc_replications*, size of the batch, number of classes). |
 
-#### **compute_predicted_class_variances**
+#### **__compute_predicted_class_variances**
+
+[View source]() AGGIUNGERE LINK
 
 ```python
-__compute_predicted_class_variances(x)
+__compute_predicted_class_variances(
+    x
+)
 ```
 
-Computes, for each sample,  the mean over the *mc_replications* predicted probabilities. It also returns the predicted uncertainties, according to chosen `uncertainty_quantification`. See details below......vedere dettagli
-
-
+Computes, for each sample,  the mean over the *mc_replications* predicted probabilities. It also returns the predicted uncertainties, according to *predicted_class_variances*`uncertainty_quantification` mode. See details in [Appendix](https://github.com/giuliocerruto/MC-uncertainty-embedding#predicted_class_variances1-).
 
 | **Args** |                              |
 | -------- | ---------------------------- |
@@ -273,13 +292,17 @@ Computes, for each sample,  the mean over the *mc_replications* predicted probab
 | ------------------- |
 | A couple of Tensors |
 
-#### **min_max**
+#### **__min_max**
+
+[View source]() AGGIUNGERE LINK
 
 ```python
-__min_max(x)
+__min_max(
+    x
+)
 ```
 
-Implements a way to calculate the dispersion in an array. It will be used in `compute_vertical_uncertainties`. 
+Implements a way to calculate the dispersion in an array. It is used in `compute_vertical_uncertainties`. 
 
 | **Args** |                |
 | -------- | -------------- |
@@ -289,13 +312,15 @@ Implements a way to calculate the dispersion in an array. It will be used in `co
 | -------------- |
 | A Numpy array. |
 
-#### **compute_vertical_uncertainties**
+#### **__compute_vertical_uncertainties**
+
+[View source]() AGGIUNGERE LINK
 
 ```python
 __compute_vertical_uncertainties(x)
 ```
 
-Computes, for each sample,  the mean over the *mc_replications* predicted probabilities. It also returns the predicted uncertainties, according to chosen `uncertainty_quantification`. See details below......vedere dettagli
+Computes, for each sample,  the mean over the *mc_replications* predicted probabilities. It also returns the predicted uncertainties, according to *vertical_uncertainties* `uncertainty_quantification` mode. See details in [Appendix](https://github.com/giuliocerruto/MC-uncertainty-embedding#vertical_uncertainties).
 
 | **Args** |                              |
 | -------- | ---------------------------- |
@@ -305,13 +330,17 @@ Computes, for each sample,  the mean over the *mc_replications* predicted probab
 | ------------------- |
 | A couple of Tensors |
 
-#### **compute_entropy_uncertainties**
+#### **__compute_entropy_uncertainties**
+
+[View source]() AGGIUNGERE LINK
 
 ```python
-__compute_entropy_uncertainties(x)
+__compute_entropy_uncertainties(
+    x
+)
 ```
 
-Computes, for each sample,  the mean over the *mc_replications* predicted probabilities. It also returns the predicted uncertainties, according to chosen `uncertainty_quantification`. See details below......vedere dettagli
+Computes, for each sample, the mean over the *mc_replications* predicted probabilities. It also returns the predicted uncertainties, according to *entropy_uncertainty* `uncertainty_quantification` mode. See details in [Appendix](https://github.com/giuliocerruto/MC-uncertainty-embedding#entropy_uncertainties-2)
 
 | **Args** |                              |
 | -------- | ---------------------------- |
@@ -323,6 +352,8 @@ Computes, for each sample,  the mean over the *mc_replications* predicted probab
 
 #### **compile**
 
+[View source]() AGGIUNGERE LINK
+
 ```python
 compile(
     optimizer='rmsprop', loss=None, metrics=None, loss_weights=None,
@@ -330,7 +361,7 @@ compile(
 )
 ```
 
-Overrides the `tf.keras.Model` [compile()]([https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L479-L586) method. Configures the model for training. It instantiates the `MetricsContainer` object`no_uncertainty_metrics` to evaluate the metrics only on a subset of the test samples.
+Overrides the `tf.keras.Model` [compile]([https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L479-L586) method. Configures the model for training. It instantiates the  object `no_uncertainty_metrics` to evaluate the metrics only on a subset of the test samples.
 
 | **Args**                |                                                              |
 | ----------------------- | ------------------------------------------------------------ |
@@ -349,6 +380,8 @@ Overrides the `tf.keras.Model` [compile()]([https://github.com/tensorflow/tensor
 
 #### **evaluate**
 
+[View source]() AGGIUNGERE LINK
+
 ```python
 evaluate(
     x=None, y=None, batch_size=None, verbose=1, sample_weight=None, steps=None,
@@ -357,9 +390,7 @@ evaluate(
 )
 ```
 
-Overrides the `tf.keras.Model` [evaluate()](https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L1340-L1501) method. Returns the loss value & metrics values for the model in test mode. It resets the state of `no_uncertainty_metrics`.
-
-
+Overrides the `tf.keras.Model` [evaluate](https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L1340-L1501) method. Returns the loss value & metrics values for the model in test mode. It resets the state of `no_uncertainty_metrics`.
 
 | **Args**                |                                                              |
 | ----------------------- | ------------------------------------------------------------ |
@@ -387,11 +418,14 @@ Overrides the `tf.keras.Model` [evaluate()](https://github.com/tensorflow/tensor
 
 #### **no_uncertainty_evaluate**
 
+[View source]() AGGIUNGERE LINK
+
 ```python
-no_uncertainty_evaluate()
+no_uncertainty_evaluate(
+)
 ```
 
-Calculates the percentage of *uncertain samples*, i.e. the percentage of test samples having  the value of `uncert` above `uncertainty_tol`. It also returns the results of `no_uncertainty_metrics`.
+Calculates the metrics values for the subset of samples whose value of `uncert` is below `uncertainty_tol` (i.e. the model is fairly certain on them) and the percentage of *uncertain samples*, i.e. the percentage of disregarded test samples.
 
 | **Returns**         |
 | ------------------- |
@@ -399,14 +433,17 @@ Calculates the percentage of *uncertain samples*, i.e. the percentage of test sa
 
 #### **test_step**
 
+[View source]() AGGIUNGERE LINK
+
 ```python
 test_step(
     data
 )
 ```
 
-Overrides the `tf.keras.Model` [test_step()](https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L1240-L1279) method. 
-It identifies which samples have, during the test,  the value of `uncert` above `uncertainty_tol`. These samples are disregarded  when updating the state of `no_uncertainty_metrics`.
+Overrides the `tf.keras.Model` [test_step](https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L1240-L1279) method.
+
+This method contains the mathematical logic for one step of testing. It includes the forward pass (performed *mc_replications* times for each sample at each epoch), uncertainty quantification, loss calculation, and metric updates. It identifies what samples have, during the test, a `uncert` value above `uncertainty_tol`. These samples are disregarded  when updating the state of `no_uncertainty_metrics`.
 
 | **Args** |                                |
 | -------- | ------------------------------ |
@@ -418,11 +455,13 @@ It identifies which samples have, during the test,  the value of `uncert` above 
 
 #### **get_test_uncertainties**
 
+[View source]() AGGIUNGERE LINK
+
 ```python
 get_test_uncertainties()
 ```
 
-It is a public method returning the uncertainties for test samples.
+It is a public method returning the uncertainties for test samples. The [evaluate]() AGGIUNGERE LINK A METODO DI QUESTO MODELLO method needs to be used first.
 
 | **Returns**    |
 | -------------- |
@@ -430,9 +469,9 @@ It is a public method returning the uncertainties for test samples.
 
 ## **SampleWeightScheduler**
 
-[View source]()
+[View source]() AGGIUNGERE LINK
 
-`SampleWeightScheduler` is a custom callback, that subclasses `tf.keras.callbacks.Callback` and overrides its method `on_epoch_begin`.
+`SampleWeightScheduler` is a custom callback, that subclasses `tf.keras.callbacks.Callback` and overrides its `on_epoch_begin` method.
 
 Inherits From: [`Callback`](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/Callback#expandable-1)
 
@@ -443,20 +482,22 @@ model = SampleWeightScheduler(schedule, verbose=0)
 | **Args**     |                                                              |
 | ------------ | ------------------------------------------------------------ |
 | **schedule** | A scheduler function.                                        |
-| **verbose**  | Int. If verbose is a strictly positive number,  information are printed. |
+| **verbose**  | Int. If verbose is a strictly positive number,  information is printed. |
 
-An object of class `SampleWeightScheduler` is necessary if you want the weights update to be depended also on the index of the current epoch. 
+An object of class `SampleWeightScheduler` is necessary if you want the weights update to be dependent also on the number of the current epoch. 
 
-Hence, it will be instantiated only if the number of parameters of the method `uncertainty_function` of the class `UncertaintyDropoutModel` are 2, i.e. if this function depend on 2 variables that are the index of the epoch and the value of uncertainty. 
+Hence, it will be instantiated only if the number of parameters of the method `uncertainty_function` of class `UncertaintyDropoutModel` is 2, i.e. if the function depends on 2 variables: the epoch number and the uncertainty value. 
 
 | **Attributes** |                                                              |
 | -------------- | ------------------------------------------------------------ |
 | **schedule**   | A scheduler function.                                        |
-| **verbose**    | Int. If verbose is a strictly positive number,  information are printed. |
+| **verbose**    | Int. If verbose is a strictly positive number,  information is printed. |
 
 ### **Methods**
 
 #### **on_epoch_begin**
+
+[View source]() AGGIUNGERE LINK
 
 ```python
 on_epoch_begin(epoch, logs=None)
@@ -474,7 +515,7 @@ When the method is called, i.e. at the start of an epoch, the uncertainty functi
 
 ### **uncertainty_quantification**  
 
-This section provides details about `UncertaintyDropoutModel` [uncertainty_quantification](ffinse) attribute. inserire codice!!! 
+This section provides details about th `UncertaintyDropoutModel` [uncertainty_quantification](ffinse) attribute. inserire codice!!! 
 It specifies how to quantify the uncertainty about predictions, after the *mc_replications* times repeated forward pass.
 
 Three different modes have been implemented to perform this task. All three share the first step, i.e. the computation of the mean of predicted probabilities  over *mc_replications* run of the forward pass.  The result is, for each sample,  a *C*-dimensional array, where *C* is the number of classes.
