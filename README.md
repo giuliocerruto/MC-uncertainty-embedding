@@ -69,7 +69,7 @@ This model subclasses `tf.keras.Model`, therefore, it can be configured, trained
 
 #### **__tofunctional**
 
-[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/30c27a081bd3a6e22c2b78203281939eb0199cad/UncertaintyDropoutModel.py#L58-L65)
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L62-L69)
 
 ```python
 __tofunctional(
@@ -89,7 +89,7 @@ Turns a [`Sequential Model`](https://www.tensorflow.org/api_docs/python/tf/keras
 
 #### __adddropoutlayers
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L71-L75) 
 
 ```python
 __adddropoutlayers(
@@ -106,7 +106,7 @@ Inserts new dropout layers to the input list of layers according to the specifie
 
 #### __scheduler
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L77-L78)
 
 ```python
 __scheduler(
@@ -127,7 +127,7 @@ Returns a [`partial object`](https://docs.python.org/3/library/functools.html#pa
 
 #### **call**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L80-L88) 
 
 ```python
 call(
@@ -148,7 +148,7 @@ Overrides the `tf.keras.Model` [call](https://www.tensorflow.org/api_docs/python
 
 #### **fit** 
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L90-L138)
 
 ```python
 fit(
@@ -160,7 +160,7 @@ fit(
 )
 ```
 
-Overrides the `tf.keras.Model` [fit(https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L877-L1238)  method. Trains the model for a fixed number of epochs (iterations on a dataset). If the model uses the `SampleWeitghtScheduler` (i.e. if  the `uncertainty_function` of the model is dependent on 2 parameters), this method adds the `SampleWeitghtScheduler` to the callbacks list of the model. 
+Overrides the `tf.keras.Model` [fit](https://github.com/tensorflow/tensorflow/blob/a4dfb8d1a71385bd6d122e4f27f86dcebb96712d/tensorflow/python/keras/engine/training.py#L877-L1238)  method. Trains the model for a fixed number of epochs (iterations on a dataset). If the model uses the `SampleWeitghtScheduler` (i.e. if  the `uncertainty_function` of the model is dependent on 2 parameters), this method adds the `SampleWeitghtScheduler` to the callbacks list of the model. 
 
 | **Args**                  |                                                              |
 | ------------------------- | ------------------------------------------------------------ |
@@ -188,8 +188,6 @@ Overrides the `tf.keras.Model` [fit(https://github.com/tensorflow/tensorflow/blo
 | ------------------------------------------------------------ |
 | A `History` object. Its `History.history` attribute is a record of training loss values and metrics values at successive epochs, as well as validation loss values and validation metrics values (if applicable). |
 
-
-
 | Raises           |                                                              |
 | ---------------- | ------------------------------------------------------------ |
 | **RuntimeError** | 1. If the model was never compiled or, <br />2. If model.fit is wrapped in tf.function |
@@ -197,7 +195,7 @@ Overrides the `tf.keras.Model` [fit(https://github.com/tensorflow/tensorflow/blo
 
 #### **__normalize_uncertainties**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L140-L147)
 
 ```python
 __normalize_uncertainties(
@@ -212,7 +210,7 @@ Computes the normalization function, based on the `uncertainty_quantification` m
 
 #### **train_step**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L149-L172)
 
 ```python
 train_step(
@@ -234,7 +232,7 @@ If the `sws` scheduler ( of class`SampleWeightScheduler`) is not instantiated (i
 
 #### **__compute_uncertainties**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L174-L180)
 
 ```python
 __compute_uncertainties(
@@ -254,7 +252,7 @@ It computes the uncertainties associated to the input, using the chosen `uncerta
 
 #### **__mc_sampling**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L182-L190)
 
 ```python
 __mc_sampling(
@@ -274,7 +272,7 @@ __mc_sampling(
 
 #### **__compute_predicted_class_variances**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L192-L204)
 
 ```python
 __compute_predicted_class_variances(
@@ -294,7 +292,7 @@ Computes, for each sample,  the mean over the *mc_replications* predicted probab
 
 #### **__min_max**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L206-L210)
 
 ```python
 __min_max(
@@ -314,7 +312,7 @@ Implements a way to calculate the dispersion in an array. It is used in `compute
 
 #### **__compute_vertical_uncertainties**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L212-L216)
 
 ```python
 __compute_vertical_uncertainties(
@@ -334,7 +332,7 @@ Computes, for each sample,  the mean over the *mc_replications* predicted probab
 
 #### **__compute_entropy_uncertainties**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L218-L222)
 
 ```python
 __compute_entropy_uncertainties(
@@ -342,7 +340,7 @@ __compute_entropy_uncertainties(
 )
 ```
 
-Computes, for each sample, the mean over the *mc_replications* predicted probabilities. It also returns the predicted uncertainties, according to *entropy_uncertainty* `uncertainty_quantification` mode. See details in [Appendix](https://github.com/giuliocerruto/MC-uncertainty-embedding#entropy_uncertainties-2)
+Computes, for each sample, the mean over the *mc_replications* predicted probabilities. It also returns the predicted uncertainties, according to *entropy_uncertainty* `uncertainty_quantification` mode. See details in [Appendix](https://github.com/giuliocerruto/MC-uncertainty-embedding#entropy_uncertainties-2).
 
 | **Args** |                              |
 | -------- | ---------------------------- |
@@ -354,7 +352,7 @@ Computes, for each sample, the mean over the *mc_replications* predicted probabi
 
 #### **compile**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L224-L245)
 
 ```python
 compile(
@@ -382,7 +380,7 @@ Overrides the `tf.keras.Model` [compile]([https://github.com/tensorflow/tensorfl
 
 #### **evaluate**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L247-L258)
 
 ```python
 evaluate(
@@ -420,7 +418,7 @@ Overrides the `tf.keras.Model` [evaluate](https://github.com/tensorflow/tensorfl
 
 #### **no_uncertainty_evaluate**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L260-L265)
 
 ```python
 no_uncertainty_evaluate(
@@ -435,7 +433,7 @@ Calculates the metrics values for the subset of samples whose value of `uncert` 
 
 #### **test_step**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L267-L288)
 
 ```python
 test_step(
@@ -457,13 +455,13 @@ This method contains the mathematical logic for one step of testing. It includes
 
 #### **get_test_uncertainties**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L290-L291)
 
 ```python
 get_test_uncertainties()
 ```
 
-It is a public method returning the uncertainties for test samples. The [evaluate]() AGGIUNGERE LINK A METODO DI QUESTO MODELLO method needs to be used first.
+It is a public method returning the uncertainties for test samples. The [evaluate](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/UncertaintyDropoutModel.py#L247-L258) method needs to be used first.
 
 | **Returns**    |
 | -------------- |
@@ -471,7 +469,7 @@ It is a public method returning the uncertainties for test samples. The [evaluat
 
 ## **SampleWeightScheduler**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/SampleWeightScheduler.py)
 
 `SampleWeightScheduler` is a custom callback, that subclasses `tf.keras.callbacks.Callback` and overrides its `on_epoch_begin` method.
 
@@ -499,7 +497,7 @@ Hence, it will be instantiated only if the number of parameters of the method `u
 
 #### **on_epoch_begin**
 
-[View source]() AGGIUNGERE LINK
+[View source](https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/SampleWeightScheduler.py#L12-L16)
 
 ```python
 on_epoch_begin(epoch, logs=None)
@@ -527,11 +525,11 @@ A further explanation of each mode follows below.
 
 #### ***predicted_class_variances***<sup>[[1](https://github.com/giuliocerruto/MC-uncertainty-embedding#references)] </sup>
 
-The uncertainty of the *i*-th sample is decomposed into two parts, *aleatoric* and *epistemic* uncertainty. The former captures irreducible variability due to the randomness of the outcomes, the latter the variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the uncertainty associated to the *i*-th sample and the *c*-th class is
+The uncertainty of the *i*-th sample is decomposed into two parts, *aleatoric* and *epistemic* uncertainty. The former captures irreducible variability due to the randomness of the outcomes, the latter the variability arising from estimation.  If *p_hat* denotes the *mc_replications* (*MC*) predicted probabilities, then the uncertainty associated to the *i*-th sample and the *c*-th class is
 
 <p align="center"><img width=450 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/predicted.png" style="zoom:8%;" /></p>
 
-Finally, the uncertainty associated to the *i*-th sample is the uncertainty of the *i*-th sample's predicted class. The remaining values are therefore discarded. 
+Finally, the uncertainty associated to the *i*-th sample is the uncertainty of the *i*-th sample's predicted class. The remaining values (not predicted classes') are therefore discarded. 
 
 #### ***vertical_uncertainties***
 
