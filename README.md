@@ -527,9 +527,11 @@ A further explanation of each mode follows below.
 
 #### ***predicted_class_variances***<sup>[[1](https://github.com/giuliocerruto/MC-uncertainty-embedding#references)] </sup>
 
-The uncertainty of the *i*-th sample is decomposed into two parts, *aleatoric* and *epistemic* uncertainty. The former captures irreducible variability due to the randomness of the outcomes, the latter the variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the *aleatoric uncertainty* is computed as the mean, along the MonteCarlo sampling dimension, of the element**-**wise product of *p_hat*.  While the *epistemic uncertainty* is obtained by subtracting CONTINUARE 
+The uncertainty of the *i*-th sample is decomposed into two parts, *aleatoric* and *epistemic* uncertainty. The former captures irreducible variability due to the randomness of the outcomes, the latter the variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the uncertainty associated to the *i*-th sample and the *c*-th class is
 
+<p align="center"><img width=350 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/predicted.png" style="zoom:8%;" /></p>
 
+Finally, the uncertainty associated to the *i*-th sample is the uncertainty of the *i*-th sample and its predicted class. The remaining values are therefore discarded. 
 
 #### ***vertical_uncertainties***
 
@@ -537,7 +539,7 @@ The uncertainty of the  *i*-th sample is obtained by computing the minimum diffe
 
 <p align="center"><img width=350 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/minmax.PNG" style="zoom:8%;" /></p>
 
-p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* run of the forward pass ) of the *i*-th sample to belong to class *c* among all classes *C*.
+p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* runs of the forward pass ) of the *i*-th sample to belong to class *c* among all classes *C*.
 
 #### *entropy_uncertainties* <sup>[[1](https://github.com/giuliocerruto/MC-uncertainty-embedding#references)] </sup>
 
@@ -545,7 +547,7 @@ The uncertainty is measured through *entropy*, that is, for the *i*-th sample:
 
 <p align="center"><img width=350 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/entropy.png" style="zoom:8%;" /></p>
 
-where p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* run of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
+where p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* runs of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
 
 ### **uncertainty_function** 
 
