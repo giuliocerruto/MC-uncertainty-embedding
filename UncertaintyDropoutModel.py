@@ -1,3 +1,4 @@
+import tensorflow as tf
 from tensorflow import keras
 from copy import deepcopy
 from inspect import signature
