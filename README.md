@@ -317,7 +317,9 @@ Implements a way to calculate the dispersion in an array. It is used in `compute
 [View source]() AGGIUNGERE LINK
 
 ```python
-__compute_vertical_uncertainties(x)
+__compute_vertical_uncertainties(
+    x
+)
 ```
 
 Computes, for each sample,  the mean over the *mc_replications* predicted probabilities. It also returns the predicted uncertainties, according to *vertical_uncertainties* `uncertainty_quantification` mode. See details in [Appendix](https://github.com/giuliocerruto/MC-uncertainty-embedding#vertical_uncertainties).
