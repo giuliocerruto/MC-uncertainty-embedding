@@ -531,7 +531,7 @@ The uncertainty of the *i*-th sample is decomposed into two parts, *aleatoric* a
 
 <p align="center"><img width=450 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/predicted.png" style="zoom:8%;" /></p>
 
-Finally, the uncertainty associated to the *i*-th sample is the uncertainty of the *i*-th sample and its predicted class. The remaining values are therefore discarded. 
+Finally, the uncertainty associated to the *i*-th sample is the uncertainty of the *i*-th sample's predicted class. The remaining values are therefore discarded. 
 
 #### ***vertical_uncertainties***
 
