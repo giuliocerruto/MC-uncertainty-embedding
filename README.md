@@ -519,7 +519,7 @@ This section provides details about the `UncertaintyDropoutModel` [uncertainty_q
 
 Three different modes have been implemented to perform this task.
 
-All three share the first step, i.e. the computation of the mean of predicted probabilities over *mc_replications* run of the forward pass.  The result is, for each sample, a *C*-dimensional array, where *C* is the number of classes.
+All three share the first step, i.e. the computation of the mean of the predicted probabilities over *mc_replications* runs of the forward pass.  The result is, for each sample, a *C*-dimensional array, where *C* is the number of classes.
 
 A further explanation of each mode follows below.
 
@@ -547,7 +547,7 @@ where p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* run o
 
 ### **uncertainty_function** 
 
-This section provides examples for the *uncertainty_function* that maps the uncertainty value of a sample to the weight it will have in the loss minimization step. The uncertainty function should be chosen from the user. It can be more or less complex, as well as it can depend on both or just the value of the uncertainty.  Below, just few examples, obtained heuristically, (???)  have been shown: 
+This section provides examples for the *uncertainty_function* that maps the uncertainty value of a sample to the weight it will have in the loss minimization step. The uncertainty function should be specified by the user. It can be more or less complex, as well as it can depend on both the epoch number and the sample uncertainty or just the uncertainty value.  Below, the two functions employed in this project, obtained heuristically, are shown. 
 
 #### **Linear**
 
@@ -579,6 +579,6 @@ It is worth pointing out the following considerations:
 
 ## References
 
-<sup>[1]</sup> Yongchan Kwona, Joong-Ho Wona, Beom Joon Kimb, Myunghee Cho Paika. *Uncertainty quantification using Bayesian neural networks in classification: Application to biomedical image segmentation*. 2019. 
+<sup>[1]</sup> Yongchan Kwona, Joong-Ho Wona, Beom Joon Kimb, Myunghee Cho Paik. [*Uncertainty quantification using Bayesian neural networks in classification: Application to biomedical image segmentation*](https://www.sciencedirect.com/science/article/abs/pii/S016794731930163X). 2019. 
 
-<sup>[2]</sup> Yarin Gal, Zoubin Ghahramani. *Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning*. 2016.
+<sup>[2]</sup> Yarin Gal, Zoubin Ghahramani. [*Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning*](https://arxiv.org/abs/1506.02142). 2016.
