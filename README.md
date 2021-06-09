@@ -557,7 +557,7 @@ The *linear uncertainty function* is defined as follows:
 
 <p align="center"><img width=900 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/linear.png" style="zoom:8%;" /></p>
 
-where *N* is the number of epochs of the model, which, in the plot, is 10. 
+where *N* is the number of epochs of the model, which, in the plot, is 7. 
 
 #### **Exponential**
 
@@ -565,16 +565,12 @@ The *exponential uncertainty function* is defined as follows:
 
 <p align="center"><img width=900 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/exp.jpg" style="zoom:8%;" /></p>
 
-where *N* is the number of epochs of the model, which, in the plot, is 10. 
+where *N* is the number of epochs of the model, which, in the plot, is 7. 
 
 It is worth pointing out the following considerations:
 
 * at the first epoch, all samples have the same weight in the loss minimization step. No influence arises from the uncertainty value. Such behavior seems reasonable at the at the beginning of the training, since the weight initialization is usually random or coming from the transfer learning approach.
-* because of increasing convexity, as the training continues, the uncertainty plays an increasingly central role. Indeed, as  the number of the current epoch grows, the samples with low uncertainties will matter more and more, vice-versa the ones with higher uncertainties, will have less and less importance. For instance, with the *linear uncertainty quantification function*, a value of uncertainty of 0.2 is mapped to a weight = 1.05 at the second epoch and to a weight = 1.45 at the last. Vice-versa a value of uncertainty of 0.9 is mapped to a weight = 0.93 at the second epoch and to a weight = 0.40 at the last.
-
-#todo: 
-
-* successivi sviluppi
+* because of increasing convexity, as the training continues, the uncertainty plays an increasingly central role. Indeed, as  the number of the current epoch grows, the samples with low uncertainties will matter more and more, vice-versa the ones with higher uncertainties, will have less and less importance. For instance, with 10 epochs, with the *linear uncertainty quantification function*, a value of uncertainty of 0.2 is mapped to a weight = 1.05 at the second epoch and to a weight = 1.45 at the last. Vice-versa a value of uncertainty of 0.9 is mapped to a weight = 0.93 at the second epoch and to a weight = 0.40 at the last.
 
 ## References
 
