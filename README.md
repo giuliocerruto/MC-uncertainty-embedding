@@ -529,7 +529,7 @@ A further explanation of each mode follows below.
 
 The uncertainty of the *i*-th sample is decomposed into two parts, *aleatoric* and *epistemic* uncertainty. The former captures irreducible variability due to the randomness of the outcomes, the latter the variability arising from estimation.  If *p_hat* denotes the *mc_replications* predicted probabilities, then the uncertainty associated to the *i*-th sample and the *c*-th class is
 
-<p align="center"><img width=350 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/predicted.png" style="zoom:8%;" /></p>
+<p align="center"><img width=400 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/predicted.png" style="zoom:8%;" /></p>
 
 Finally, the uncertainty associated to the *i*-th sample is the uncertainty of the *i*-th sample and its predicted class. The remaining values are therefore discarded. 
 
