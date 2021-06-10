@@ -50,6 +50,16 @@ model = UncertaintyDropoutModel(underlying_model,
 
 This model subclasses `tf.keras.Model`, therefore, it can be configured, trained and tested with the usual and well-known `Model`'s methods: [`compile`](https://www.tensorflow.org/api_docs/python/tf/keras/Model#compile), [`fit`](https://www.tensorflow.org/api_docs/python/tf/keras/Model#fit) and [`evaluate`](https://www.tensorflow.org/api_docs/python/tf/keras/Model#evaluate).
 
+```python
+model.compile(
+    loss=tf.keras.losses.SparseCategoricalCrossentropy(reduction='none'),
+    optimizer=tf.keras.optimizers.Adam(0.0001),
+    metrics=['accuracy']
+)
+model.fit(x=train_dataset, validation_data=val_dataset, epochs=EPOCHS, verbose=1)
+model.evaluate(x= test_dataset)
+```
+
 | **Attributes**                 |                                                              |
 | ------------------------------ | ------------------------------------------------------------ |
 | **mc_replications**            | The number of times the forward pass is requested to be executed at each epoch for each sample. |
@@ -537,7 +547,7 @@ The uncertainty of the  *i*-th sample is obtained by computing the minimum diffe
 
 <p align="center"><img width=350 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/minmax.PNG" style="zoom:8%;" /></p>
 
-p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* runs of the forward pass ) of the *i*-th sample to belong to class *c* among all classes *C*.
+*p*<sub>*c*</sub>(*i*) is the mean probability  (over *mc_replications* runs of the forward pass ) of the *i*-th sample to belong to class *c* among all classes *C*.
 
 #### *entropy_uncertainties* <sup>[[1](https://github.com/giuliocerruto/MC-uncertainty-embedding#references)] </sup>
 
@@ -545,7 +555,7 @@ The uncertainty is measured through *entropy*, that is, for the *i*-th sample:
 
 <p align="center"><img width=350 src="https://github.com/giuliocerruto/MC-uncertainty-embedding/blob/main/img/entropy.png" style="zoom:8%;" /></p>
 
-where p <sub>c</sub>(*i*) is the mean probability  (over *mc_replications* runs of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
+where *p*<sub>*c*</sub>(*i*) is the mean probability  (over *mc_replications* runs of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
 
 ### **uncertainty_function** 
 
