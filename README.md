@@ -56,8 +56,8 @@ model.compile(
     optimizer=tf.keras.optimizers.Adam(0.0001),
     metrics=['accuracy']
 )
-model.fit(x=train_dataset, validation_data=val_dataset, epochs=EPOCHS, verbose=1)
-model.evaluate(x= test_dataset)
+model.fit(x=train_dataset, validation_data=val_dataset, epochs=10, verbose=1)
+model.evaluate(x=test_dataset)
 ```
 
 | **Attributes**                 |                                                              |
