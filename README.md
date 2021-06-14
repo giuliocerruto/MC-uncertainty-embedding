@@ -40,7 +40,7 @@ model = UncertaintyDropoutModel(underlying_model,
 | **uncertainty_function**       | A function mapping the uncertainty value of a sample to the weight it will have in the loss minimization step. The uncertainty belongs to the interval [0,1]. The function can take either one argument (the uncertainty of the sample) or two (the epoch number and the uncertainty of the sample, in this given order). |
 | **mc_replications**            | The number of times the forward pass is requested to be executed at each epoch for each sample. |
 | **mc_dropout_rate**            | The dropout rate of each [tf.keras.layers.Dropout](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Dropout) layer. |
-| **dropout_pos**                | Either a list of booleans of length len(underlying_model.layers)-1 specifying whether to add a dropout layer between two layers of the original model or not, or *'all'* if a dropout layer should be added anywhere. See details in [Appendix](https://github.com/giuliocerruto/MC-uncertainty-embedding#entropy_uncertainties-2). |
+| **dropout_pos**                | Either a list of booleans of length len(underlying_model.layers)-1 specifying whether to add a dropout layer between two layers of the original model or not, or *'all'* if a dropout layer should be added anywhere. See details in [Appendix](https://github.com/giuliocerruto/MC-uncertainty-embedding#dropout_pos). |
 | **uncertainty_quantification** | A string among *'predicted_class_variances'*, *'vertical_uncertainties'* and *'entropy_uncertainties'* (see ... for more details) specifying how to quantify the uncertainty, after the *mc_replications* times repeated forward pass. |
 | **uncertainty_tol**            | A float tolerance value above which to disregard a sample when updating the metrics' state (only during the evaluation step). |
 
@@ -520,7 +520,8 @@ When the method is called, i.e. at the start of an epoch, the uncertainty functi
 | --------- | ------------------------ |
 | **epoch** | Integer, index of epoch. |
 | **logs**  | `Dict`                   |
-
+-------------------------
+------------------------
 ## Appendix
 
 ### **uncertainty_quantification**  
@@ -587,7 +588,7 @@ It is worth pointing out the following considerations:
 
   --------------------------------
 
-  ### **dropout_pos**  
+### **dropout_pos**  
 
   This section provides suggestions  on where to place dropout layers in the neural network.  These choices are justified by the referenced scientific literature.
 
