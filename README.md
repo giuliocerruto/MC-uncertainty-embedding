@@ -40,7 +40,7 @@ model = UncertaintyDropoutModel(underlying_model,
 | **uncertainty_function**       | A function mapping the uncertainty value of a sample to the weight it will have in the loss minimization step. The uncertainty belongs to the interval [0,1]. The function can take either one argument (the uncertainty of the sample) or two (the epoch number and the uncertainty of the sample, in this given order). |
 | **mc_replications**            | The number of times the forward pass is requested to be executed at each epoch for each sample. |
 | **mc_dropout_rate**            | The dropout rate of each [tf.keras.layers.Dropout](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Dropout) layer. |
-| **dropout_pos**                | Either a list of booleans of length len(underlying_model.layers)-1 specifying whether to add a dropout layer between two layers of the original model or not, or *'all'* if a dropout layer should be added anywhere. |
+| **dropout_pos**                | Either a list of booleans of length len(underlying_model.layers)-1 specifying whether to add a dropout layer between two layers of the original model or not, or *'all'* if a dropout layer should be added anywhere. See details in [Appendix](https://github.com/giuliocerruto/MC-uncertainty-embedding#entropy_uncertainties-2). |
 | **uncertainty_quantification** | A string among *'predicted_class_variances'*, *'vertical_uncertainties'* and *'entropy_uncertainties'* (see ... for more details) specifying how to quantify the uncertainty, after the *mc_replications* times repeated forward pass. |
 | **uncertainty_tol**            | A float tolerance value above which to disregard a sample when updating the metrics' state (only during the evaluation step). |
 
@@ -525,7 +525,7 @@ When the method is called, i.e. at the start of an epoch, the uncertainty functi
 
 ### **uncertainty_quantification**  
 
-This section provides details about the `UncertaintyDropoutModel` [uncertainty_quantification](ffinse) attribute. (inserire link!!!) Such attribute specifies how the model should quantify the prediction uncertainty, after the *mc_replications* times repeated forward pass.
+This section provides details about the `UncertaintyDropoutModel` [uncertainty_quantification](ffinse) attribute. Such attribute specifies how the model should quantify the prediction uncertainty, after the *mc_replications* times repeated forward pass.
 
 Three different modes have been implemented to perform this task.
 
@@ -557,6 +557,8 @@ The uncertainty is measured through *entropy*, that is, for the *i*-th sample:
 
 where *p*<sub>*c*</sub>(*i*) is the mean probability  (over *mc_replications* runs of the forward pass ) that the *i*-th sample belongs to class *c* among all classes *C*.
 
+--------------------------
+
 ### **uncertainty_function** 
 
 This section provides examples for the *uncertainty_function* that maps the uncertainty value of a sample to the weight it will have in the loss minimization step. The uncertainty function should be specified by the user. It can be more or less complex, as well as it can depend on both the epoch number and the sample uncertainty or just the uncertainty value.  Below, the two functions employed in this project, obtained heuristically, are shown. 
@@ -580,10 +582,31 @@ where *N* is the number of epochs of the model, which, in the plot, is 7.
 It is worth pointing out the following considerations:
 
 * at the first epoch, all samples have the same weight in the loss minimization step. No influence arises from the uncertainty value. Such behavior seems reasonable at the at the beginning of the training, since the weight initialization is usually random or coming from the transfer learning approach.
+
 * because of increasing convexity, as the training continues, the uncertainty plays an increasingly central role. Indeed, as  the number of the current epoch grows, the samples with low uncertainties will matter more and more, vice-versa the ones with higher uncertainties, will have less and less importance. For instance, with 10 epochs, with the *linear uncertainty quantification function*, a value of uncertainty of 0.2 is mapped to a weight = 1.05 at the second epoch and to a weight = 1.45 at the last. Vice-versa a value of uncertainty of 0.9 is mapped to a weight = 0.93 at the second epoch and to a weight = 0.40 at the last.
+
+  --------------------------------
+
+  ### **dropout_pos**  
+
+  This section provides suggestions  on where to place dropout layers in the neural network.  These choices are justified by the referenced scientific literature.
+
+  #### **Classification**<sup>[[3](https://github.com/giuliocerruto/MC-uncertainty-embedding#references)] </sup>
+
+  Dropout is used on each of the fully connected (dense) layers before the output, i.e, the classification layers layer.  Hence, dropout is not used on the convolutional layers. 
+
+  #### **Convolutional**<sup>[[4](https://github.com/giuliocerruto/MC-uncertainty-embedding#references)] </sup>
+
+   Dropout is used after the activation function of each convolutional layer.
+
+  
 
 ## References
 
 <sup>[1]</sup> Yongchan Kwona, Joong-Ho Wona, Beom Joon Kimb, Myunghee Cho Paik. [*Uncertainty quantification using Bayesian neural networks in classification: Application to biomedical image segmentation*](https://www.sciencedirect.com/science/article/abs/pii/S016794731930163X). 2019. 
 
 <sup>[2]</sup> Yarin Gal, Zoubin Ghahramani. [*Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning*](https://arxiv.org/abs/1506.02142). 2016.
+
+<sup>[3]</sup> G. E. Hinton , N. Srivastava, A. Krizhevsky, I. Sutskever and R. R. Salakhutdinov [*Improving neural networks by preventing co-adaptation of feature detectors*](https://arxiv.org/pdf/1207.0580.pdf). 2012. 
+
+<sup>[4]</sup> Sungheon Park and Nojun Kwak [*Analysis on the Dropout Effect in Convolutional Neural Networks*](https://arxiv.org/pdf/1207.0580.pdf). 2016. 
