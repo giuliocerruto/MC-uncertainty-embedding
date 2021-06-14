@@ -606,7 +606,7 @@ It is worth pointing out the following considerations:
 
 <sup>[1]</sup> Yongchan Kwona, Joong-Ho Wona, Beom Joon Kimb, Myunghee Cho Paik. [*Uncertainty quantification using Bayesian neural networks in classification: Application to biomedical image segmentation*](https://www.sciencedirect.com/science/article/abs/pii/S016794731930163X). 2019. 
 
-<sup>[2]</sup> Yarin Gal, Zoubin Ghahramani. [*Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning*](https://arxiv.org/abs/1506.02142). 2016.
+<sup>[2]</sup> Yarin Gal, Zoubin Ghahramani. [*Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning*](https://arxiv.org/pdf/1506.02142.pdf ). 2016.
 
 <sup>[3]</sup> G. E. Hinton , N. Srivastava, A. Krizhevsky, I. Sutskever and R. R. Salakhutdinov [*Improving neural networks by preventing co-adaptation of feature detectors*](https://arxiv.org/pdf/1207.0580.pdf). 2012. 
 
