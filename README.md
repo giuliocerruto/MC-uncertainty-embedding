@@ -610,4 +610,4 @@ It is worth pointing out the following considerations:
 
 <sup>[3]</sup> G. E. Hinton , N. Srivastava, A. Krizhevsky, I. Sutskever and R. R. Salakhutdinov [*Improving neural networks by preventing co-adaptation of feature detectors*](https://arxiv.org/pdf/1207.0580.pdf). 2012. 
 
-<sup>[4]</sup> Sungheon Park and Nojun Kwak [*Analysis on the Dropout Effect in Convolutional Neural Networks*](https://arxiv.org/pdf/1207.0580.pdf). 2016. 
+<sup>[4]</sup> Sungheon Park and Nojun Kwak [*Analysis on the Dropout Effect in Convolutional Neural Networks*](http://mipal.snu.ac.kr/images/1/16/Dropout_ACCV2016.pdf). 2016. 
